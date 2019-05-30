@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace Ex3.Controllers
 {
-    public class FlightController : Controller
+    public class SaveFlightController : Controller
     {
-        // GET: Home
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult SaveFlightData(string ip, int port, double interval, double duration, string fileName)
         {
             return View();
         }

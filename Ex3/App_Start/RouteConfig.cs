@@ -13,11 +13,22 @@ namespace Ex3
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("Display", "display/{ip}/{port}/{interval}",
+              defaults: new { controller = "FlightBoard", action = "DisplayFlight", interval = "0" });
+
+            routes.MapRoute("DisplayLocation", "display/{ip}/{port}/{interval}/GetFlightData",
+              defaults: new { controller = "FlightBoard", action = "GetFlightData", interval = "0" });
+
+
+            routes.MapRoute("Save", "save/{ip}/{port}/{interval}/{duration}/{fileName}",
+                defaults: new { controller = "SaveFlight", action = "SaveFlightData" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Flight", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
         }
     }
 }
