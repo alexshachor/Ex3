@@ -23,7 +23,7 @@ namespace Ex3.Models
             //TODO: deserialize the file, so we will get the data
 
 
-            return dataCollection;
+            return default(T);
         }
     }
 }

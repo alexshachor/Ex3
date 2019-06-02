@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,8 +14,20 @@ namespace Ex3.Controllers
         [HttpGet]
         public ActionResult DisplayFlight(string ip, int port, double interval)
         {
-            return View();
+            IPAddress ipAddr;
+            if (IPAddress.TryParse(ip, out ipAddr))
+            {
+                Session["IP"] = ip;
+                Session["Port"] = port;
+                Session["Interval"] = interval;
+                return View();
+            }
+            else
+            {
+                return null;
+            }
         }
+
 
         [HttpGet]
         public ActionResult GetFlightData(string ip, int port, double interval)

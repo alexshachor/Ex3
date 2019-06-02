@@ -3,5 +3,12 @@
     ViewBag.Title = "Flight Board";
 }
 
-<canvas id="mapImage"></canvas>
+<script>
+    var requestData = {
+        ip: '@Session["IP"]',
+        port: parseInt('@Session["Port"]'),
+        interval: parseFloat('@Session["Interval"]')
+    };
+</script>
+
 <script src="~/Scripts/displayFlight.js"></script>
