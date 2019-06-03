@@ -34,9 +34,11 @@ namespace Ex3.Controllers
         {
             ClientHandler clientHandler = new ClientHandler();
             //Location currentLocation = clientHandler.GetLocation(ip, port);
+            Random rnd = new Random();
+
             Location currentLocation = new Location();
-            currentLocation.Lat = 100;
-            currentLocation.Lon = 10;
+            currentLocation.Lat = rnd.NextDouble()*30;
+            currentLocation.Lon = rnd.NextDouble() * 30;
             return Json(currentLocation, JsonRequestBehavior.AllowGet);
         }
     }

@@ -1,5 +1,10 @@
 ﻿$(function () {
 
+    var canvasElement;
+    var context;
+    var lastLocation;
+
+
     function init() {
         if (!requestData) {
             return;
@@ -8,10 +13,12 @@
         var interval = requestData.interval || 0;
         interval *= 1000;
 
-        var canvasElement = $("#mapCanvas");
-        var context = canvasElement.getContext("2d");
+        canvasElement = document.getElementById("mapCanvas");
+        context = canvasElement.getContext("2d");
+        context.canvas.width = window.innerWidth;
+        context.canvas.height = window.innerHeight;
 
-        var lastLocation;
+
         getLocation(onSuccessCallForLocation);
 
         if (interval) {
@@ -22,7 +29,7 @@
     }
 
     function getLocation(onSuccessCallback) {
-        var url = requestData.port + "/" + requestData.interval + "/GetFlightData";
+        var url =  requestData.interval + "/GetFlightData";
         $.getJSON(url, {}, onSuccessCallback);
     }
 
@@ -30,8 +37,11 @@
         if (!data) {
             return;
         }
-        var location = convertLocation(canvasElement, data.Lon, data.Lat);
-        drawFlightLocationOnCanvas(context, location);
+        var location = convertLocation(context, data.Lon, data.Lat);
+
+
+
+        drawFlightLocationOnCanvas(context, lastLocation, location);
         lastLocation = location;
     }
 
@@ -39,10 +49,14 @@
         if (!data) {
             return;
         }
-        var currentLocation = convertLocation(canvasElement, data.Lon, data.Lat);
-        drawFlightRouteOnCanvas(canvasElement, lastLocation, currentLocation);
+        var currentLocation = convertLocation(context, data.Lon, data.Lat);
+        //TODO: rearrange the function
+        //drawFlightRouteOnCanvas(context, lastLocation, currentLocation);
+        drawFlightLocationOnCanvas(context, lastLocation, currentLocation);
+
         lastLocation = currentLocation;
     }
-    
+
     init();
 })
+
