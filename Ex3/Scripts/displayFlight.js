@@ -8,7 +8,7 @@
         var interval = requestData.interval || 0;
         interval *= 1000;
 
-        var canvasElement = document.getElementById("#mapCanvas");
+        var canvasElement = $("#mapCanvas");
         var context = canvasElement.getContext("2d");
 
         var lastLocation;

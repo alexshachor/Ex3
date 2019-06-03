@@ -16,7 +16,7 @@ function drawFlightRouteOnCanvas(context, lastLocation, currentLocation) {
 
 function drawFlightLocationOnCanvas(context, location) {
     context.beginPath();
-    context.arc(location.lon, location.lat, , 5, 10 * Math.PI);
+    context.arc(location.lon, location.lat, 5, 10 * Math.PI);
     context.fillStyle = "Blue";
     context.fill();
 }
