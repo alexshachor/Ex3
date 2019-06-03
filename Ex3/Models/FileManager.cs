@@ -15,24 +15,11 @@ namespace Ex3.Models
             bool hasDataSaved = false;
             Stream writer = null;
 
-            try
+            using (writer = File.OpenWrite(fileName))
             {
-                using (writer = File.OpenWrite(fileName))
-                {
-                    XmlSerializer serializer = new XmlSerializer(typeof(T));
-                    serializer.Serialize(writer, dataCollection);
-                }
-            }
-            catch (IOException)
-            {
-            }
-            finally
-            {
-                if (writer != null)
-                {
-                    writer.Close();
-                    hasDataSaved = true;
-                }
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                serializer.Serialize(writer, dataCollection);
+                hasDataSaved = true;
             }
 
             return hasDataSaved;
@@ -40,29 +27,13 @@ namespace Ex3.Models
 
         public T LoadData(string fileName)
         {
-            T dataCollection;
             Stream reader = null;
-
-            try
+            
+            using (reader = File.OpenRead(fileName))
             {
-                using (reader = File.OpenRead(fileName))
-                {
-                    XmlSerializer serializer = new XmlSerializer(typeof(T));
-                    dataCollection = (T)serializer.Deserialize(reader);
-                }
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                return (T)serializer.Deserialize(reader);
             }
-            catch (IOException)
-            {
-            }
-            finally
-            {
-                if (reader != null)
-                {
-                    reader.Close();
-                }
-            }
-
-            return dataCollection;
         }
     }
 }
