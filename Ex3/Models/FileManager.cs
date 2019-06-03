@@ -8,14 +8,14 @@ using System.Xml.Serialization;
 
 namespace Ex3.Models
 {
-    public class FileManager<T> where T : ISerializable
+    public class FileManager<T>
     {
         public bool SaveData(string fileName, T dataCollection)
         {
             bool hasDataSaved = false;
             Stream writer = null;
 
-            using (writer = File.OpenWrite(fileName))
+            using (writer = File.OpenWrite(GetPath(fileName)))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 serializer.Serialize(writer, dataCollection);
@@ -28,12 +28,17 @@ namespace Ex3.Models
         public T LoadData(string fileName)
         {
             Stream reader = null;
-            
-            using (reader = File.OpenRead(fileName))
+
+            using (reader = File.OpenRead(GetPath(fileName)))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 return (T)serializer.Deserialize(reader);
             }
+        }
+
+        public string GetPath(string fileName)
+        {
+            return HttpContext.Current.Server.MapPath(String.Format("~/App_Data/{0}.xml", fileName));
         }
     }
 }
