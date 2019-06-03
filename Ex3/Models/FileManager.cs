@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
+using System.Xml.Serialization;
 
 namespace Ex3.Models
 {
@@ -11,7 +13,27 @@ namespace Ex3.Models
         public bool SaveData(string fileName, T dataCollection)
         {
             bool hasDataSaved = false;
-            //TODO: serialize the list, so it will be saved in the file.
+            Stream writer = null;
+
+            try
+            {
+                using (writer = File.OpenWrite(fileName))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(T));
+                    serializer.Serialize(writer, dataCollection);
+                }
+            }
+            catch (IOException)
+            {
+            }
+            finally
+            {
+                if (writer != null)
+                {
+                    writer.Close();
+                    hasDataSaved = true;
+                }
+            }
 
             return hasDataSaved;
         }
@@ -19,11 +41,28 @@ namespace Ex3.Models
         public T LoadData(string fileName)
         {
             T dataCollection;
+            Stream reader = null;
 
-            //TODO: deserialize the file, so we will get the data
+            try
+            {
+                using (reader = File.OpenRead(fileName))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(T));
+                    dataCollection = (T)serializer.Deserialize(reader);
+                }
+            }
+            catch (IOException)
+            {
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+            }
 
-
-            return default(T);
+            return dataCollection;
         }
     }
 }
