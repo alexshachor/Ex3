@@ -17,7 +17,7 @@ namespace Ex3.Models
                 {"lon", "get /position/longitude-deg"},
                 {"lat","get /position/latitude-deg"},
                 {"rudder", "get /controls/flight/rudder"},
-                {"throttle", "get controls/engines/current-engine/throttle"}
+                {"throttle", "get /controls/engines/current-engine/throttle"}
             };
         }
 
