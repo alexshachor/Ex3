@@ -134,6 +134,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\FlightBoard\DisplayFlight.cshtml" />
     <Content Include="Views\SaveFlight\SaveFlightData.cshtml" />
+    <Content Include="Views\FlightBoard\LoadFlightData.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -20,17 +20,17 @@ namespace Ex3.Controllers
                 Session["IP"] = ip;
                 Session["Port"] = port;
                 Session["Interval"] = interval;
-                return View();
+                return View("DisplayFlight");
             }
             else
             {
-                return null;
+                return View("LoadFlightData");
             }
         }
 
 
         [HttpGet]
-        public ActionResult GetFlightData(string ip, int port, double interval)
+        public ActionResult GetLocation(string ip, int port, double interval)
         {
             ClientHandler clientHandler = new ClientHandler();
             //Location currentLocation = clientHandler.GetLocation(ip, port);
@@ -40,6 +40,21 @@ namespace Ex3.Controllers
             currentLocation.Lat = rnd.NextDouble()*30;
             currentLocation.Lon = rnd.NextDouble() * 30;
             return Json(currentLocation, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetFlightData(string fileName)
+        {
+            if (fileName == String.Empty)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "File Not Found");
+            }
+
+            FileManager<List<FlightData>> fManager = new FileManager<List<FlightData>>();
+            List<FlightData> flightData = fManager.LoadData(fileName);
+
+            return Json(flightData, JsonRequestBehavior.AllowGet);
+            // TODO return flightData;
         }
     }
 }

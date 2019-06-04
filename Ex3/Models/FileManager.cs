@@ -15,6 +15,11 @@ namespace Ex3.Models
             bool hasDataSaved = false;
             Stream writer = null;
 
+            if (fileName == String.Empty)
+            {
+                return hasDataSaved;
+            }
+
             using (writer = File.OpenWrite(GetPath(fileName)))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
