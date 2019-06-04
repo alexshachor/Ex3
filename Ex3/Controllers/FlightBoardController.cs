@@ -30,7 +30,7 @@ namespace Ex3.Controllers
 
 
         [HttpGet]
-        public ActionResult GetLocation(string ip, int port, double interval)
+        public ActionResult GetLocation(string ip, int port)
         {
             ClientHandler clientHandler = new ClientHandler();
             //Location currentLocation = clientHandler.GetLocation(ip, port);
@@ -47,7 +47,7 @@ namespace Ex3.Controllers
         {
             if (fileName == String.Empty)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "File Not Found");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "File name is empty");
             }
 
             FileManager<List<FlightData>> fManager = new FileManager<List<FlightData>>();

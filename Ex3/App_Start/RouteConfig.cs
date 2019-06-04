@@ -12,14 +12,15 @@ namespace Ex3
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("favicon.ico");
 
             routes.MapRoute("Display", "display/{ip}/{port}/{interval}",
               defaults: new { controller = "FlightBoard", action = "DisplayFlight", interval = "0" });
 
-            routes.MapRoute("DisplayLocation", "display/{ip}/{port}/{interval}/GetLocation",
-              defaults: new { controller = "FlightBoard", action = "GetLocation", interval = "0"});
+            routes.MapRoute("DisplayLocation", "getLocation/{ip}/{port}",
+              defaults: new { controller = "FlightBoard", action = "GetLocation"});
 
-            routes.MapRoute("FlightData", "GetFlightData/{fileName}",
+            routes.MapRoute("FlightData", "getFlightData/{fileName}",
               defaults: new { controller = "FlightBoard", action = "GetFlightData"});
 
 
