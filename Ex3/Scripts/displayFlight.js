@@ -18,42 +18,26 @@
         context.canvas.width = window.innerWidth;
         context.canvas.height = window.innerHeight;
 
-
-        getLocation(onSuccessCallForLocation);
+        getLocation();
 
         if (interval) {
             setInterval(function () {
-                getLocation(onSuccessCallForRoute);
+                getLocation();
             }, interval);
         }
     }
 
-    function getLocation(onSuccessCallback) {
-        var url =  requestData.interval + "/GetFlightData";
-        $.getJSON(url, {}, onSuccessCallback);
+    function getLocation() {
+        var url = "/" + requestData.interval + "GetLocation";// + requestData.ip + "/" + requestData.port + "/" + requestData.interval;
+        $.getJSON(url, {}, onSuccessCallForFlightLocation);
     }
 
-    function onSuccessCallForLocation(data) {
-        if (!data) {
-            return;
-        }
-        var location = convertLocation(context, data.Lon, data.Lat);
-
-
-
-        drawFlightLocationOnCanvas(context, lastLocation, location);
-        lastLocation = location;
-    }
-
-    function onSuccessCallForRoute(data) {
+    function onSuccessCallForFlightLocation(data) {
         if (!data) {
             return;
         }
         var currentLocation = convertLocation(context, data.Lon, data.Lat);
-        //TODO: rearrange the function
-        //drawFlightRouteOnCanvas(context, lastLocation, currentLocation);
         drawFlightLocationOnCanvas(context, lastLocation, currentLocation);
-
         lastLocation = currentLocation;
     }
 

@@ -6,19 +6,8 @@ function convertLocation(context, lon, lat) {
     return result;
 }
 
-function drawFlightRouteOnCanvas(context, lastLocation, currentLocation) {
-    context.beginPath();
-    context.moveTo(lastLocation.lon, lastLocation.lat);
-    context.lineTo(currentLocation.lon, currentLocation.lat);
-    context.strokeStyle = "#2600ff";
-    context.stroke();
-}
 
 function drawFlightLocationOnCanvas(context, lastLocation, location) {
-    //context.beginPath();
-    //context.arc(location.lon, location.lat, 5, 5, 10 * Math.PI);
-    //context.fillStyle = "Blue";
-    //context.fill();
 
     context.beginPath();
     context.arc(location.lon, location.lat, 5, 0, 2 * Math.PI, true);
@@ -32,5 +21,4 @@ function drawFlightLocationOnCanvas(context, lastLocation, location) {
     }
     context.strokeStyle = 'black';
     context.stroke();
-
 }
