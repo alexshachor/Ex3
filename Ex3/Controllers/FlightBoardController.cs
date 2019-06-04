@@ -37,7 +37,7 @@ namespace Ex3.Controllers
             Random rnd = new Random();
 
             Location currentLocation = new Location();
-            currentLocation.Lat = rnd.NextDouble()*30;
+            currentLocation.Lat = rnd.NextDouble() * 30;
             currentLocation.Lon = rnd.NextDouble() * 30;
             return Json(currentLocation, JsonRequestBehavior.AllowGet);
         }
@@ -54,7 +54,6 @@ namespace Ex3.Controllers
             List<FlightData> flightData = fManager.LoadData(fileName);
 
             return Json(flightData, JsonRequestBehavior.AllowGet);
-            // TODO return flightData;
         }
     }
 }
