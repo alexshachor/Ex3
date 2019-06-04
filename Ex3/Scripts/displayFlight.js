@@ -32,7 +32,7 @@
 
     //get location from the server
     function getLocation() {
-        var url = "/getLocation/" + requestData.ip + "/" + requestData.port;
+        var url = "/flightData/location/" + requestData.ip + "/" + requestData.port;
         $.getJSON(url, {}, onSuccessCallForFlightLocation);
     }
 

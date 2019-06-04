@@ -28,7 +28,6 @@ namespace Ex3.Controllers
             }
         }
 
-
         [HttpGet]
         public ActionResult GetLocation(string ip, int port)
         {
@@ -37,13 +36,23 @@ namespace Ex3.Controllers
             Random rnd = new Random();
 
             Location currentLocation = new Location();
-            currentLocation.Lat = rnd.NextDouble() * 30;
-            currentLocation.Lon = rnd.NextDouble() * 30;
+            currentLocation.Lat = rnd.NextDouble() * 50;
+            currentLocation.Lon = rnd.NextDouble() * 50;
+
             return Json(currentLocation, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult GetFlightData(string fileName)
+        public ActionResult GetFlightData(string ip, int port)
+        {
+            ClientHandler clientHandler = new ClientHandler();
+            FlightData flightData = clientHandler.GetFlightData(ip, port);
+
+            return Json(flightData, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetFlightDataFromFile(string fileName)
         {
             if (fileName == String.Empty)
             {
@@ -55,5 +64,6 @@ namespace Ex3.Controllers
 
             return Json(flightData, JsonRequestBehavior.AllowGet);
         }
+
     }
 }
