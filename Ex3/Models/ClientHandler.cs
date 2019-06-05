@@ -38,8 +38,8 @@ namespace Ex3.Models
 
                 location = new Location()
                 {
-                    Lat = getValueFromString(lat),
-                    Lon = getValueFromString(lon)
+                    Lat = getValueFromResponse(lat),
+                    Lon = getValueFromResponse(lon)
                 };
             }
             return location;
@@ -61,16 +61,29 @@ namespace Ex3.Models
                 flightData = new FlightData()
                 {
                     FlightLocation = GetLocation(ip, port),
-                    Rudder = getValueFromString(rudder),
-                    Throttle = getValueFromString(throttle)
+                    Rudder = getValueFromResponse(rudder),
+                    Throttle = getValueFromResponse(throttle)
                 };
             }
             return flightData;
         }
 
-        private double getValueFromString(string response)
+        private double getValueFromResponse(string response)
         {
-            return 0;
+            if (response == String.Empty)
+            {
+                return 0;
+            }
+
+            string[] separated = response.Split('\'');
+            if (separated.Length < 3)
+            {
+                return 0;
+            }
+
+            double value = 0;
+            double.TryParse(separated[1], out value);
+            return value;
         }
     }
 }
