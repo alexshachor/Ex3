@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "View Flight Data";
+}
+
+<ul id="flightDataList"></ul>
+
+<script>
+        var requestData = {
+            interval: parseFloat('@Session["Interval"]'),
+            fileName: '@Session["FileName"]'
+        };
+</script>
+
+
+<script src="~/Scripts/viewFlightData.js"></script>
+

@@ -23,11 +23,15 @@ namespace Ex3
               defaults: new { controller = "FlightBoard", action = "GetLocation" });
 
             routes.MapRoute("GetFlightDataFromFile", "flightData/{fileName}",
-              defaults: new { controller = "FlightBoard", action = "GetFlightDataFromFile" });
+              defaults: new { controller = "FlightBoard", action = "GetFlightDataListFromFile" });
 
 
             routes.MapRoute("Save", "save/{ip}/{port}/{interval}/{duration}/{fileName}",
-                defaults: new { controller = "SaveFlight", action = "SaveFlightData" });
+                defaults: new { controller = "SaveFlight", action = "SaveFlight" });
+
+
+            routes.MapRoute("SaveFlightDataList", "save/{fileName}",
+                defaults: new { controller = "SaveFlight", action = "SaveFlightDataList" });
 
             routes.MapRoute(
                 name: "Default",

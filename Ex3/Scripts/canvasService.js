@@ -35,6 +35,15 @@ $(function () {
         context.stroke();
     }
 
+    function getCanvasContext(elementId) {
+        //adjust canvas to our screen
+        var canvasElement = document.getElementById(elementId);
+        var context = canvasElement.getContext("2d");
+        context.canvas.width = window.innerWidth;
+        context.canvas.height = window.innerHeight;
+        return context;
+    }
+
     //exposing the service functionality
-    canvasService = { convertLocation: convertLocation, drawFlightLocationOnCanvas: drawFlightLocationOnCanvas };
-})
+    canvasService = { convertLocation: convertLocation, drawFlightLocationOnCanvas: drawFlightLocationOnCanvas, getCanvasContext: getCanvasContext };
+});

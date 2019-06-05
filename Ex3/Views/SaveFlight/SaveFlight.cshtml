@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Save Flight Data";
+}
+
+<script>
+        var requestData = {
+            ip: '@Session["IP"]',
+            port: parseInt('@Session["Port"]'),
+            interval: parseFloat('@Session["Interval"]'),
+            duration: parseFloat('@Session["Duration"]'),
+            fileName: '@Session["FileName"]'
+        };
+</script>
+
+<script src="~/Scripts/saveFlight.js"></script>

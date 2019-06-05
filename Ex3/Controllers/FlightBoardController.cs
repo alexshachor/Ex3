@@ -24,7 +24,9 @@ namespace Ex3.Controllers
             }
             else
             {
-                return View("LoadFlightData");
+                Session["FileName"] = ip;
+                Session["Interval"] = port;
+                return View("ViewFlightData");
             }
         }
 
@@ -32,12 +34,7 @@ namespace Ex3.Controllers
         public ActionResult GetLocation(string ip, int port)
         {
             ClientHandler clientHandler = new ClientHandler();
-            //Location currentLocation = clientHandler.GetLocation(ip, port);
-            Random rnd = new Random();
-
-            Location currentLocation = new Location();
-            currentLocation.Lat = rnd.NextDouble() * 50;
-            currentLocation.Lon = rnd.NextDouble() * 50;
+            Location currentLocation = clientHandler.GetLocation(ip, port);
 
             return Json(currentLocation, JsonRequestBehavior.AllowGet);
         }
@@ -46,13 +43,22 @@ namespace Ex3.Controllers
         public ActionResult GetFlightData(string ip, int port)
         {
             ClientHandler clientHandler = new ClientHandler();
-            FlightData flightData = clientHandler.GetFlightData(ip, port);
-
+            //FlightData flightData = clientHandler.GetFlightData(ip, port);
+            Random rnd = new Random();
+            Location currentLocation = new Location();
+            currentLocation.Lat = rnd.NextDouble() * 50;
+            currentLocation.Lon = rnd.NextDouble() * 50;
+            FlightData flightData = new FlightData()
+            {
+                FlightLocation = currentLocation,
+                Throttle = rnd.NextDouble() * 50,
+                Rudder = rnd.NextDouble() * 50
+            };
             return Json(flightData, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult GetFlightDataFromFile(string fileName)
+        public ActionResult GetFlightDataListFromFile(string fileName)
         {
             if (fileName == String.Empty)
             {
@@ -60,9 +66,9 @@ namespace Ex3.Controllers
             }
 
             FileManager<List<FlightData>> fManager = new FileManager<List<FlightData>>();
-            List<FlightData> flightData = fManager.LoadData(fileName);
+            List<FlightData> flightDataList = fManager.LoadData(fileName);
 
-            return Json(flightData, JsonRequestBehavior.AllowGet);
+            return Json(flightDataList, JsonRequestBehavior.AllowGet);
         }
 
     }

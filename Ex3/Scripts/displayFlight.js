@@ -1,6 +1,5 @@
 ﻿$(function () {
 
-    var canvasElement;
     var context;
     var lastLocation;
 
@@ -14,11 +13,7 @@
         var interval = requestData.interval || 0;
         interval *= 1000;
 
-        //adjust canvas to our screen
-        canvasElement = document.getElementById("mapCanvas");
-        context = canvasElement.getContext("2d");
-        context.canvas.width = window.innerWidth;
-        context.canvas.height = window.innerHeight;
+        context = canvasService.getCanvasContext("mapCanvas");
 
         getLocation();
 
@@ -48,5 +43,5 @@
     }
 
     init();
-})
+});
 

@@ -1,13 +1,13 @@
 ﻿@{
-        ViewBag.Title = "Flight Board";
-    }
+    ViewBag.Title = "Flight Board";
+}
 
-    <script>
+<script>
         var requestData = {
             ip: '@Session["IP"]',
             port: parseInt('@Session["Port"]'),
             interval: parseFloat('@Session["Interval"]')
         };
-    </script>
+</script>
 
-    <script src="~/Scripts/displayFlight.js"></script>
+<script src="~/Scripts/displayFlight.js"></script>
