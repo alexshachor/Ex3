@@ -20,7 +20,13 @@ namespace Ex3.Models
                 return hasDataSaved;
             }
 
-            using (writer = File.OpenWrite(GetPath(fileName)))
+            string path = GetPath(fileName);
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+
+            using (writer = File.OpenWrite(path))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 serializer.Serialize(writer, dataCollection);
@@ -34,7 +40,13 @@ namespace Ex3.Models
         {
             Stream reader = null;
 
-            using (reader = File.OpenRead(GetPath(fileName)))
+            string path = GetPath(fileName);
+            if (!File.Exists(path))
+            {
+                throw new Exception("file not found");
+            }
+
+            using (reader = File.OpenRead(path))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 return (T)serializer.Deserialize(reader);

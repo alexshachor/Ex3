@@ -62,11 +62,19 @@ namespace Ex3.Controllers
         {
             if (fileName == String.Empty)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "File name is empty");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "file name is empty");
             }
 
             FileManager<List<FlightData>> fManager = new FileManager<List<FlightData>>();
-            List<FlightData> flightDataList = fManager.LoadData(fileName);
+            List<FlightData> flightDataList;
+            try
+            {
+                flightDataList = fManager.LoadData(fileName);
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "file not foundt");
+            }
 
             return Json(flightDataList, JsonRequestBehavior.AllowGet);
         }
