@@ -83,7 +83,11 @@ namespace Ex3.Models
 
         public void CloseConnection()
         {
-            client.Close();
+            if (client.Connected)
+            {
+                client.Close();
+                client = new TcpClient();
+            }
         }
 
         public string GetResponse(string command)

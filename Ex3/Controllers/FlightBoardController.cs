@@ -20,6 +20,10 @@ namespace Ex3.Controllers
                 Session["IP"] = ip;
                 Session["Port"] = port;
                 Session["Interval"] = interval;
+
+                ClientHandler clientHandler = new ClientHandler();
+                clientHandler.CloseConnection();
+
                 return View("DisplayFlight");
             }
             else
@@ -43,17 +47,8 @@ namespace Ex3.Controllers
         public ActionResult GetFlightData(string ip, int port)
         {
             ClientHandler clientHandler = new ClientHandler();
-            //FlightData flightData = clientHandler.GetFlightData(ip, port);
-            Random rnd = new Random();
-            Location currentLocation = new Location();
-            currentLocation.Lat = rnd.NextDouble() * 50;
-            currentLocation.Lon = rnd.NextDouble() * 50;
-            FlightData flightData = new FlightData()
-            {
-                FlightLocation = currentLocation,
-                Throttle = rnd.NextDouble() * 50,
-                Rudder = rnd.NextDouble() * 50
-            };
+            FlightData flightData = clientHandler.GetFlightData(ip, port);
+
             return Json(flightData, JsonRequestBehavior.AllowGet);
         }
 

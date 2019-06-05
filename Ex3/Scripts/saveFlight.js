@@ -17,11 +17,12 @@
         duration *= 1000;
 
         context = canvasService.getCanvasContext("mapCanvas");
+        getFlightData();
 
         //if interval was defined, w'll update the location, every interval-value time 
         if (interval) {
             var startInterval = setInterval(function () {
-                getFlightDataList();
+                getFlightData();
             }, interval);
 
             var stopInterval = setTimeout(function () {
@@ -34,7 +35,7 @@
     }
 
     //get location from the server
-    function getFlightDataList() {
+    function getFlightData() {
         var url = "/flightData/" + requestData.ip + "/" + requestData.port;
         $.getJSON(url, {}, onSuccessCallForFlightData);
     }

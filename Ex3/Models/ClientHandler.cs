@@ -68,6 +68,11 @@ namespace Ex3.Models
             return flightData;
         }
 
+        public void CloseConnection()
+        {
+            Client.Instance.CloseConnection();
+        }
+
         private double getValueFromResponse(string response)
         {
             if (response == String.Empty)

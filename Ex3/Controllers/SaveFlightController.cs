@@ -30,6 +30,10 @@ namespace Ex3.Controllers
         [HttpPost]
         public ActionResult SaveFlightDataList(string fileName, List<FlightData> flightDataList)
         {
+
+            ClientHandler clientHandler = new ClientHandler();
+            clientHandler.CloseConnection();
+
             if (fileName == String.Empty || flightDataList == null || flightDataList.Count == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "File name or data is missing");
